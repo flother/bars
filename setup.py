@@ -7,7 +7,7 @@ setup(name="bars",
       version=__version__,
       description="A command-line interface that loads a CSV file and outputs "
                   "a bar chart.",
-      long_description=open("README.md").read(),
+      long_description=open("README.rst").read(),
       url="https://github.com/flother/bars",
       classifiers=[
           "Development Status :: 4 - Beta",

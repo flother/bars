@@ -1,6 +1,8 @@
 A small command-line utility to take a CSV file and print a bar chart in
-your terminal. Especially useful in combination with tools like [CSVKit][],
-[q][], and [jq][].
+your terminal. Especially useful in combination with tools like CSVKit_,
+q_, and jq_.
+
+::
 
     $ curl -s http://www.census.gov/popest/data/national/totals/2015/files/NST-EST2015-alldata.csv | head -n 6 | bars --label NAME --value POPESTIMATE2015 --width 72 -
     NAME             POPESTIMATE2015
@@ -15,18 +17,24 @@ your terminal. Especially useful in combination with tools like [CSVKit][],
 * Repository: https://github.com/flother/bars
 * Issues: https://github.com/flother/bars/issues
 
-## Installation
+Installation
+------------
+
+::
 
     pip install -e git+https://github.com/flother/bars#egg=bars
 
-## Requirements
+Requirements
+------------
 
-* [Python 3][]
-* [Click][]
-* [Agate][]
+* `Python 3`_
+* `Click`_
+* `Agate`_
 
+Usage
+-----
 
-## Usage
+::
 
     Usage: bars [OPTIONS] CSV
     
@@ -47,9 +55,9 @@ your terminal. Especially useful in combination with tools like [CSVKit][],
       --help              Show this message and exit.
 
 
-[CSVKit]: http://csvkit.readthedocs.org/en/latest/
-[q]: http://harelba.github.io/q/
-[jq]: https://stedolan.github.io/jq/
-[Python 3]: https://docs.python.org/3/
-[Click]: http://click.pocoo.org/6/
-[Agate]: http://agate.readthedocs.org/en/1.3.1/
+.. _CSVKit: http://csvkit.readthedocs.org/en/latest/
+.. _q: http://harelba.github.io/q/
+.. _jq: https://stedolan.github.io/jq/
+.. _Python 3: https://docs.python.org/3/
+.. _Click: http://click.pocoo.org/6/
+.. _Agate: http://agate.readthedocs.org/en/1.3.1/
