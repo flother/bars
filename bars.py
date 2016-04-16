@@ -11,9 +11,6 @@ import agate
 import click
 
 
-__version__ = "0.0.1"
-
-
 class Number(click.ParamType):
 
     """

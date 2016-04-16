@@ -1,10 +1,8 @@
 from setuptools import setup
 
-from bars import __version__
-
 
 setup(name="bars",
-      version=__version__,
+      version="0.0.1",
       description="A command-line interface that loads a CSV file and outputs "
                   "a bar chart.",
       long_description=open("README.rst").read(),
