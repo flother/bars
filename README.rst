@@ -22,7 +22,7 @@ Installation
 
 ::
 
-    pip install -e git+https://github.com/flother/bars#egg=bars
+    pip install bars
 
 Requirements
 ------------
