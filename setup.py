@@ -18,7 +18,7 @@ setup(name="bars",
           "Programming Language :: Python :: 3",
           "Topic :: Utilities",
       ],
-      modules=["bars"],
+      py_modules=["bars"],
       entry_points={
           "console_scripts": ["bars=bars:main"],
       },
