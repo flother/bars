@@ -14,6 +14,7 @@ q_, and jq_.
                                      +---------+---------------------------+
                                      0    100,000,000            400,000,000
 
+* Documentation: http://bars.readthedocs.org/
 * Repository: https://github.com/flother/bars
 * Issues: https://github.com/flother/bars/issues
 
