@@ -2,7 +2,7 @@
 project = "Bars"
 version = release = "0.0.1"
 author = "Matt Riggott"
-copyright = "2016 {}".format(author)
+copyright = " 2016 {}".format(author)
 
 
 master_doc = "index"
