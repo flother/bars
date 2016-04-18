@@ -2,7 +2,7 @@
 """
 Click-based command-line interface written in Python 3 that takes a CSV
 file and outputs a bar chart. The heavy-lifting is done by
-:func:`agate.Table.print_bars`.
+:meth:`agate.Table.print_bars`.
 """
 import io
 import warnings
