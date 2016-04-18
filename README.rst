@@ -4,15 +4,19 @@ q_, and jq_.
 
 ::
 
-    $ curl -s http://www.census.gov/popest/data/national/totals/2015/files/NST-EST2015-alldata.csv | head -n 6 | bars --label NAME --value POPESTIMATE2015 --width 72 -
+    $ curl -sL https://github.com/flother/bars/raw/master/tests/fixtures/us_region_pop.csv | \
+      bars --label NAME \
+           --value POPESTIMATE2015 \
+           --width 72 \
+           --domain 0 150000000 \
+           -
     NAME             POPESTIMATE2015
-    United States        321,418,820 ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-    Northeast Region      56,283,891 ▓░░░░░
-    Midwest Region        67,907,403 ▓░░░░░░
-    South Region         121,182,847 ▓░░░░░░░░░░░░
-    West Region           76,044,679 ▓░░░░░░░
+    Northeast Region      56,283,891 ▓░░░░░░░░░░░░░░
+    Midwest Region        67,907,403 ▓░░░░░░░░░░░░░░░░░
+    South Region         121,182,847 ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    West Region           76,044,679 ▓░░░░░░░░░░░░░░░░░░░
                                      +---------+---------------------------+
-                                     0    100,000,000            400,000,000
+                                     0    37,500,000             150,000,000
 
 * Documentation: http://bars.readthedocs.org/
 * Repository: https://github.com/flother/bars
