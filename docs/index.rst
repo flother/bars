@@ -7,13 +7,13 @@ like CSVKit_ and jq_.
 
 Let's say you want a chart of the ten most populous counties in the United
 States. You could write something in your favourite programming language but
-sometimes it's easier to just work on the command-line::
+sometimes it's faster to work on the command-line::
 
     $ curl -s 'api.census.gov/data/2014/acs5?get=NAME,B01001_001E&for=county:*' | \
-        jq -r '.[][0:2] | @csv' | \
+        jq -r '.[] | @csv' | \
         csvsort -c 2 -r | \
         head -n 11 | \
-        bars --width 72 -
+        bars --label NAME --value B01001_001E --width 72 -
     NAME                           B01001_001E
     Los Angeles County, California   9,974,203 ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     Cook County, Illinois            5,227,827 ▓░░░░░░░░░░░░░░░
@@ -32,8 +32,7 @@ In this short `Unix pipeline`_ we:
 
 * get county populations as :abbr:`JSON (JavaScript Object Notation)` data from
   the :abbr:`US (United States)` Census Bureau;
-* pass it through a jq filter to keep only county names and populations, and
-  convert it to :abbr:`CSV (Comma-separated values)`;
+* convert it to :abbr:`CSV (Comma-separated values)`;
 * order the counties by population (largest first);
 * keep only the first eleven rows (the header and ten data rows); and
 * output that data as a bar chart.
