@@ -40,6 +40,96 @@ class Number(click.ParamType):
         return value
 
 
+def label_or_value_column_name(option_name, option_value, column_type, table):
+    """
+    Parses a ``--label`` or ``--value`` option value. Possibilities are
+    that it's a string that matches a column name, that it's a column
+    index (1 being the first column), or that it's blank --- in which
+    case the first column of type ``column_type`` is used, if there is
+    one.
+
+    Args:
+        option_name: Name of the option (e.g. ``label`` for
+            ``--label foo``).
+        option_value: Option value given on the command-line (e.g.
+            ``foo`` for ``--label foo``).
+        column_type: If ``option_value`` is ``None`` then the name of
+            the first column of this type (a sub-class of
+            :class:`agate.DataType`) will be returned.
+        table: :class:`agate.Table` instance.
+
+    Returns:
+        :class:`str`
+
+    Raises:
+        click.UsageError: ``option_value`` is ``None`` and a column of
+            type ``column_type`` doesn't exist in ``table``.
+        click.BadParameter: If an integer value is given and there is no
+            column with that index (starting at one); or if a string is
+            given and there is no column with that name.
+    """
+    if option_value and option_value.isdigit():
+        # If the option value is an integer, use it as a column index.
+        option_value = int(option_value)
+        try:
+            option_value = table.columns[option_value - 1].name
+        except IndexError:
+            raise click.BadParameter("index {} is beyond the last column, "
+                                     "'{}', at index {}".format(
+                                        option_value, table.columns[-1].name,
+                                        len(table.columns)))
+    elif option_value is None:
+        # If the option wasn't given on the command-line, find the first column
+        # of type ``column_type``, if there is one.
+        try:
+            option_value = [c.name for c in table.columns
+                            if isinstance(c.data_type, column_type)][0]
+        except IndexError:
+            raise click.UsageError("no --{} specified and no {} column "
+                                   "found".format(option_name, column_type))
+    else:
+        # Use the option value as a column name.
+        try:
+            table.columns[option_value]
+        except KeyError:
+            raise click.BadParameter(
+                "no column named '{}'".format(option_value),
+                param_hint=option_name)
+    return option_value
+
+
+def label_column_name(value, table):
+    """
+    Parses a ``--label`` option value. For details see
+    :func:`label_or_value_column_name`.
+
+    Args:
+        value: Option value given on the command-line (e.g. ``foo`` for
+            ``--label foo``).
+        table: :class:`agate.Table` instance.
+
+    Returns:
+        :class:`str`
+    """
+    return label_or_value_column_name("label", value, agate.Text, table)
+
+
+def value_column_name(value, table):
+    """
+    Parses a ``--value`` option value. For details see
+    :func:`label_or_value_column_name`.
+
+    Args:
+        value: Option value given on the command-line (e.g. ``bar`` for
+            ``--value bar``).
+        table: :class:`agate.Table` instance.
+
+    Returns:
+        :class:`str`
+    """
+    return label_or_value_column_name("value", value, agate.Number, table)
+
+
 @click.command()
 @click.option("--label", help="Name or index of the column containing the "
                               "label values. Defaults to the first text "
@@ -90,61 +180,9 @@ def main(label, value, domain, width, skip, encoding, no_header, use_ascii,
         except ValueError:
             raise click.BadParameter("not a valid CSV file", param_hint="CSV")
 
-    # Parse the label. Possibilities are that it's a string that matches a
-    # column name, that it's a column index (1 being the first column), or that
-    # it's blank --- in which case the first text column is used, if there is
-    # one.
-    if label and label.isdigit():
-        label = int(label)
-        try:
-            label = table.columns[label + 1]
-        except IndexError:
-            raise click.UsageError("index {} is beyond the last column, '{}', "
-                                   "at index {}".format(label,
-                                                        table.columns[-1].name,
-                                                        len(table.columns)))
-    elif label is None:
-        try:
-            label = [c.name for c in table.columns
-                     if isinstance(c.data_type, agate.Text)][0]
-        except IndexError:
-            raise click.UsageError("no --label specified and no text column "
-                                   "found")
-    else:
-        # Check that there's a column with the given name.
-        try:
-            table.columns[label]
-        except KeyError:
-            raise click.BadParameter("no column named '{}'".format(label),
-                                     param_hint="label")
-
-    # Parse the value. Possibilities are that it's a string that matches a
-    # column name, that it's a column index (1 being the first column), or that
-    # it's blank --- in which case the first numeric column is used, if there
-    # is one.
-    if value and value.isdigit():
-        value = int(value)
-        try:
-            value = table.columns[value + 1]
-        except IndexError:
-            raise click.UsageError("index {} is beyond the last column, '{}', "
-                                   "at index {}".format(value,
-                                                        table.columns[-1].name,
-                                                        len(table.columns)))
-    elif value is None:
-        try:
-            value = [c.name for c in table.columns
-                     if isinstance(c.data_type, agate.Number)][0]
-        except IndexError:
-            raise click.UsageError("no --value specified and no number column "
-                                   "found")
-    else:
-        # Check that there's a column with the given name.
-        try:
-            table.columns[value]
-        except KeyError:
-            raise click.BadParameter("no column named '{}'".format(value),
-                                     param_hint="value")
+    # Convert label and value into column names.
+    label = label_column_name(label, table)
+    value = value_column_name(value, table)
 
     with io.StringIO() as fh:
         table.print_bars(label, value, domain, width, fh, printable=use_ascii)
