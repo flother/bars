@@ -44,12 +44,23 @@ and :meth:`agate.Table.print_bars`.
 Installation
 ------------
 
-::
+Installing Bars system-wide is easy::
 
-    pip install bars
+    sudo pip install bars
 
-Once installed you have a new command-line utility, ``bars``. Pass in a
-filename or use ``-`` for ``stdin``.
+If you want to install the cutting-edge development version, use:
+
+.. code-block:: text
+
+    sudo pip install -e git+https://github.com/flother/bars#egg=bars
+
+.. note::
+   If you're familiar with virtualenv_ it's better to install Bars inside a
+   virtual environment. If you do, use either of the previous commands but
+   without the ``sudo``.
+
+After you install Bars you'll have a new command-line utility, ``bars``. Pass
+in a filename or use ``-`` for ``stdin``.
 
 Usage
 -----
@@ -79,3 +90,4 @@ Usage
 .. _Unix pipeline: https://en.wikipedia.org/wiki/Pipeline_(Unix)
 .. _source code can be found on GitHub: https://github.com/flother/bars
 .. _Agate: http://agate.readthedocs.org/en/latest/
+.. _virtualenv: https://virtualenv.pypa.io/
