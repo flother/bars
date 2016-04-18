@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 """
-Click-based command-line interface written in Python 3 that takes a CSV
-file and outputs a bar chart. The heavy-lifting is done by
-:meth:`agate.Table.print_bars`.
+Click-based command-line utility written in Python 3 that takes
+:abbr:`CSV (Comma-separated values)` data and outputs a bar chart. The
+heavy-lifting is done by :meth:`agate.Table.print_bars`.
 """
 import io
 import warnings

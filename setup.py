@@ -3,8 +3,8 @@ from setuptools import setup
 
 setup(name="bars",
       version="0.1.0-pre",
-      description="A command-line interface that loads a CSV file and outputs "
-                  "a bar chart.",
+      description="A command-line utility that takes CSV data and outputs a "
+                  "bar chart",
       long_description=open("README.rst").read(),
       url="https://github.com/flother/bars",
       classifiers=[
