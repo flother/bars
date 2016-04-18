@@ -153,7 +153,7 @@ def value_column_name(value, table):
 def main(label, value, domain, width, skip, encoding, no_header, use_ascii,
          csv):
     """
-    Load a CSV file and output a bar chart.
+    Load CSV data and output a bar chart.
     """
     # Ensure ``SIGPIPE`` doesn't throw an exception. This prevents the
     # ``[Errno 32] Broken pipe`` error you see when, e.g., piping to ``head``.
