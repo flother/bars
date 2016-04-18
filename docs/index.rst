@@ -72,7 +72,7 @@ Usage
       --skip INTEGER      Number of rows to skip.  [default: 0]
       --encoding TEXT     Character encoding of the CSV file.  [default: UTF-8]
       --no-header         Indicates the CSV file contains no header row.
-      --printable         Only use printable characters to draw the bar chart.
+      --use-ascii         Only use ASCII characters to draw the bar chart.
       --help              Show this message and exit.
 
 .. _CSVKit: http://csvkit.readthedocs.org/en/latest/

@@ -57,10 +57,10 @@ class Number(click.ParamType):
               default="UTF-8", show_default=True)
 @click.option("--no-header", help="Indicates the CSV file contains no header "
                                   "row.", is_flag=True, default=False)
-@click.option("--printable", help="Only use printable characters to draw the "
-                                  "bar chart.", is_flag=True, default=False)
+@click.option("--use-ascii", help="Only use ASCII characters to draw the bar "
+                                  "chart.", is_flag=True, default=False)
 @click.argument("csv", type=click.File("rt"))
-def main(label, value, domain, width, skip, encoding, no_header, printable,
+def main(label, value, domain, width, skip, encoding, no_header, use_ascii,
          csv):
     """
     Load a CSV file and output a bar chart.
@@ -147,7 +147,7 @@ def main(label, value, domain, width, skip, encoding, no_header, printable,
                                      param_hint="value")
 
     with io.StringIO() as fh:
-        table.print_bars(label, value, domain, width, fh, printable=printable)
+        table.print_bars(label, value, domain, width, fh, printable=use_ascii)
         fh.seek(0)
         click.echo(fh.read())
 
