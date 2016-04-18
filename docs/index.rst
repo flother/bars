@@ -55,7 +55,7 @@ filename or use ``-`` for ``stdin``.
 Usage
 -----
 
-::
+.. code-block:: text
 
     Usage: bars [OPTIONS] CSV
     

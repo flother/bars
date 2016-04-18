@@ -35,7 +35,7 @@ Requirements
 Usage
 -----
 
-::
+.. code-block:: text
 
     Usage: bars [OPTIONS] CSV
     
