@@ -62,28 +62,83 @@ If you want to install the cutting-edge development version, use:
 After you install Bars you'll have a new command-line utility, ``bars``. Pass
 in a filename or use ``-`` for ``stdin``.
 
-Usage
------
+Tutorial
+--------
 
-.. code-block:: text
+Let's say you have a CSV file named ``us_pop.csv`` that contains the following
+data:
 
-    Usage: bars [OPTIONS] CSV
-    
-      Load a CSV file and output a bar chart.
-    
-    Options:
-      --label TEXT        Name or index of the column containing the label values.
-                          Defaults to the first text column.
-      --value TEXT        Name or index of the column containing the bar values.
-                          Defaults to the first numeric column.
-      --domain NUMBER...  Minimum and maximum values for the chart's x-axis.
-      --width INTEGER     Width, in characters, to use to print the chart.
-                          [default: 80]
-      --skip INTEGER      Number of rows to skip.  [default: 0]
-      --encoding TEXT     Character encoding of the CSV file.  [default: UTF-8]
-      --no-header         Indicates the CSV file contains no header row.
-      --use-ascii         Only use ASCII characters to draw the bar chart.
-      --help              Show this message and exit.
+======  ================  ===============  ===============
+REGION  NAME              POPESTIMATE2014  POPESTIMATE2015
+======  ================  ===============  ===============
+1       Northeast Region  56171281         56283891
+2       Midwest Region    67762069         67907403
+3       South Region      119795010        121182847
+4       West Region       75179041         76044679
+======  ================  ===============  ===============
+
+You want to make a bar chart showing 2015 population estimates for each region.
+Bars makes this easy::
+
+    $ bars --label NAME --value POPESTIMATE2015 us_pop.csv
+
+Here we explicitly set a label (y-axis) and value (x-axis) but you don't have
+to include them. Bars defaults to using the first text column for the label and
+the first numeric column for the value. In the table above our label column,
+``NAME``, is the first text column, and so we can leave the ``--label``
+parameter out and still get the same result::
+
+    $ bars --value POPESTIMATE2015 us_pop.csv
+
+Our value column, ``POPESTIMATE2015``, is the third numeric column so we must
+include it explicitly, but we can shorten it to just the column index (where
+``1`` is the first column). ``POPESTIMATE2015`` is the fourth column so you can
+use::
+
+    $ bars --value 4 us_pop.csv
+
+The bar chart defaults to the full width of your terminal, but you can set it
+to a particular width using ``--width``::
+
+    $ bars --value 4 --width 72 us_pop.csv
+
+Now we have a bar chart that looks like this::
+
+    NAME             POPESTIMATE2015
+    Northeast Region      56,283,891 ▓░░░░░░░░░░░
+    Midwest Region        67,907,403 ▓░░░░░░░░░░░░░
+    South Region         121,182,847 ▓░░░░░░░░░░░░░░░░░░░░░░░
+    West Region           76,044,679 ▓░░░░░░░░░░░░░░
+                                     +---------+---------------------------+
+                                     0    50,000,000             200,000,000
+
+It looks nice, but perhaps there's too much of a margin to the right of the
+bars. To change that we can set the *domain* for the x-axis --- that is, its
+minimum and maximum values. Let's set the minimum to 0 and the maximum to 130
+million::
+
+    $ bars --value 4 --width 72 --domain 0 130000000 us_pop.csv
+    NAME             POPESTIMATE2015
+    Northeast Region      56,283,891 ▓░░░░░░░░░░░░░░░░
+    Midwest Region        67,907,403 ▓░░░░░░░░░░░░░░░░░░░░
+    South Region         121,182,847 ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    West Region           76,044,679 ▓░░░░░░░░░░░░░░░░░░░░░░
+                                     +---------+---------------------------+
+                                     0    32,500,000             130,000,000
+
+You want to send the chart in an email to a friend, but you're worried the
+Unicode characters that Bars uses will get mangled by their email client. Let's
+print the chart using only ASCII::
+
+    $ bars --value 4 --width 72 --domain 0 130000000 --use-ascii us_pop.csv
+    NAME             POPESTIMATE2015
+    Northeast Region      56,283,891 |::::::::::::::::
+    Midwest Region        67,907,403 |::::::::::::::::::::
+    South Region         121,182,847 |:::::::::::::::::::::::::::::::::::
+    West Region           76,044,679 |::::::::::::::::::::::
+                                     +---------+---------------------------+
+                                     0    32,500,000             130,000,000
+
 
 .. _CSVKit: http://csvkit.readthedocs.org/en/latest/
 .. _jq: https://stedolan.github.io/jq/
