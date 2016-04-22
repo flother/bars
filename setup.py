@@ -13,6 +13,7 @@ setup(name="bars",
                   "bar chart",
       long_description=readme(),
       url="https://github.com/flother/bars",
+      license="MIT",
       classifiers=[
           "Development Status :: 4 - Beta",
           "Environment :: Console",
