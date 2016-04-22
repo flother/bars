@@ -1,11 +1,17 @@
 from setuptools import setup
 
 
+def readme():
+    with open("README.rst") as fh:
+        contents = fh.read()
+    return contents
+
+
 setup(name="bars",
       version="0.1.0-pre",
       description="A command-line utility that takes CSV data and outputs a "
                   "bar chart",
-      long_description=open("README.rst").read(),
+      long_description=readme(),
       url="https://github.com/flother/bars",
       classifiers=[
           "Development Status :: 4 - Beta",
