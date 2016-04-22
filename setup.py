@@ -29,6 +29,6 @@ setup(name="bars",
           "console_scripts": ["bars=bars:main"],
       },
       install_requires=[
-          "agate==1.3.1",
-          "click==6.6",
+          "agate>=1.3.1",
+          "click>=6.0",
       ])
