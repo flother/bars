@@ -44,9 +44,9 @@ def label_or_value_column_name(option_name, option_value, column_type, table):
     """
     Parses a ``--label`` or ``--value`` option value. Possibilities are
     that it's a string that matches a column name, that it's a column
-    index (1 being the first column), or that it's blank --- in which
-    case the first column of type ``column_type`` is used, if there is
-    one.
+    index (0 being the first column, -1 being the last), or that it's
+    blank --- in which case the first column of type ``column_type`` is
+    used, if there is one.
 
     Args:
         option_name: Name of the option (e.g. ``label`` for
@@ -68,11 +68,16 @@ def label_or_value_column_name(option_name, option_value, column_type, table):
             column with that index (starting at one); or if a string is
             given and there is no column with that name.
     """
-    if option_value and option_value.isdigit():
+    try:
+        option_value = int(option_value)
+    except ValueError:
+        pass
+
+    if isinstance(option_value, int):
         # If the option value is an integer, use it as a column index.
         option_value = int(option_value)
         try:
-            option_value = table.columns[option_value - 1].name
+            option_value = table.columns[option_value].name
         except IndexError:
             raise click.BadParameter("index {} is beyond the last column, "
                                      "'{}', at index {}".format(
