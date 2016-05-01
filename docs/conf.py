@@ -32,5 +32,5 @@ extensions = [
 ]
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.4", None),
-    "agate": ("http://agate.readthedocs.org/en/1.3.1/", None),
+    "agate": ("http://agate.readthedocs.io/en/1.3.1/", None),
 }

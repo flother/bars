@@ -140,9 +140,9 @@ print the chart using only ASCII::
                                      0    32,500,000             130,000,000
 
 
-.. _CSVKit: http://csvkit.readthedocs.org/en/latest/
+.. _CSVKit: http://csvkit.readthedocs.io/en/latest/
 .. _jq: https://stedolan.github.io/jq/
 .. _Unix pipeline: https://en.wikipedia.org/wiki/Pipeline_(Unix)
 .. _source code can be found on GitHub: https://github.com/flother/bars
-.. _Agate: http://agate.readthedocs.org/en/latest/
+.. _Agate: http://agate.readthedocs.io/en/latest/
 .. _virtualenv: https://virtualenv.pypa.io/

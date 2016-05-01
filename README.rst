@@ -18,7 +18,7 @@ q_, and jq_.
                                      +---------+---------------------------+
                                      0    37,500,000             150,000,000
 
-* Documentation: http://bars.readthedocs.org/
+* Documentation: http://bars.readthedocs.io/
 * Repository: https://github.com/flother/bars
 * Issues: https://github.com/flother/bars/issues
 
@@ -62,5 +62,5 @@ Further details can be found in the documentation_.
 .. _jq: https://stedolan.github.io/jq/
 .. _Python 3: https://docs.python.org/3/
 .. _Click: http://click.pocoo.org/6/
-.. _Agate: http://agate.readthedocs.org/en/1.3.1/
-.. _documentation: http://bars.readthedocs.org/
+.. _Agate: http://agate.readthedocs.io/en/1.3.1/
+.. _documentation: http://bars.readthedocs.io/
